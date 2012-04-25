@@ -1,0 +1,30 @@
+﻿@model RisingTide.Models.ScheduledPayment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ScheduledPayment</legend>
+
+    <div class="display-label">IsDeleted</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsDeleted)
+    </div>
+
+    <div class="display-label">Amount</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Amount)
+    </div>
+
+    <div class="display-label">FirstPayment</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstPayment)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
