@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Create";
 }
+    <script type="text/javascript">
+        $(function () {
+            RISINGTIDE.createPaymentSetup();
+        });
+    </script>
 
 <h2>Create</h2>
 
@@ -14,7 +19,7 @@
     <fieldset>
         <legend>ScheduledPayment</legend>
 
-        <div class="editor-label">
+@*        <div class="editor-label">
             @Html.LabelFor(model => model.IsDeleted)
         </div>
         <div class="editor-field">
@@ -22,7 +27,7 @@
             @Html.ValidationMessageFor(model => model.IsDeleted)
         </div>
 
-        <div class="editor-label">
+*@        <div class="editor-label">
             @Html.LabelFor(model => model.Amount)
         </div>
         <div class="editor-field">

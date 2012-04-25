@@ -14,7 +14,7 @@ namespace RisingTide.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
-            string x = User.Identity.Name;
+            string x = "user";
             Models.User y = this.context.Users.FirstOrDefault(u => u.Username == x);
             return View();
         }

@@ -14,5 +14,6 @@ namespace RisingTide.Models
         public decimal Amount { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime FirstPayment { get; set; }
+        public string Payee { get; set; }
     }
 }
