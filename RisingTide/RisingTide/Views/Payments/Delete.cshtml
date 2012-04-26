@@ -24,6 +24,26 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.FirstPayment)
     </div>
+
+    <div class="display-label">Payee</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Payee)
+    </div>
+
+    <div class="display-label">Recurrence</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Recurrence.Name)
+    </div>
+
+    <div class="display-label">PaymentType</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PaymentType.Name)
+    </div>
+
+    <div class="display-label">IncludeInProjection</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IncludeInProjection)
+    </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>

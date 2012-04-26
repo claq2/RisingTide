@@ -67,6 +67,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="DataAccess\IDomainContext.cs" />
+    <Compile Include="DataAccess\MyDatabaseInitializer.cs" />
     <Compile Include="DataAccess\RisingTideContext.cs" />
     <Compile Include="DataAccess\QueryableExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -74,6 +75,8 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\IEntity.cs" />
+    <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Models\Recurrence.cs" />
     <Compile Include="Models\ScheduledPayment.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

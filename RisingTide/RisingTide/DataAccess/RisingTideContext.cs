@@ -25,7 +25,7 @@ namespace RisingTide.DataAccess
             : base("ApplicationServices")
         {
             this.Configuration.AutoDetectChangesEnabled = enableChangeTracking;
-            this.Configuration.LazyLoadingEnabled = false;
+            //this.Configuration.LazyLoadingEnabled = false;
         }
 
         static RisingTideContext()
@@ -54,6 +54,20 @@ namespace RisingTide.DataAccess
         IQueryable<User> IDomainContext.Users
         {
             get { return this.Users.Where(x => !x.IsDeleted); }
+        }
+
+        public virtual DbSet<Recurrence> Recurrences { get; set; }
+
+        IQueryable<Recurrence> IDomainContext.Recurrences
+        {
+            get { return this.Recurrences.Where(x => !x.IsDeleted); }
+        }
+
+        public virtual DbSet<PaymentType> PaymentTypes { get; set; }
+
+        IQueryable<PaymentType> IDomainContext.PaymentTypes
+        {
+            get { return this.PaymentTypes.Where(x => !x.IsDeleted); }
         }
 
         /// <summary>
@@ -117,17 +131,5 @@ namespace RisingTide.DataAccess
             T entityToDelete = this.Set<T>().Find(id);
             entityToDelete.IsDeleted = true;
         }
-    }
-
-    public class MyDatabaseInitializer : DropCreateDatabaseIfModelChanges<RisingTideContext>    
-    {
-        protected override void Seed(RisingTideContext context)       
-        {          
-            base.Seed(context);        
-            //Add a User and Role Sample!      
-            //Membership.CreateUser("jmclachlan", "test123");     
-            //Roles.CreateRole("Admin");
-            //Roles.AddUsersToRole(new[] { "jmclachlan" }, "Admin");    
-        }   
     }
 }

@@ -11,28 +11,52 @@
 </p>
 <table>
     <tr>
-@*        <th>
+        <th>
             IsDeleted
         </th>
-*@        <th>
+        <th>
             Amount
         </th>
         <th>
             FirstPayment
+        </th>
+        <th>
+            Payee
+        </th>
+        <th>
+            Recurrence
+        </th>
+        <th>
+            PaymentType
+        </th>
+        <th>
+            IncludeInProjection
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-@*        <td>
+        <td>
             @Html.DisplayFor(modelItem => item.IsDeleted)
         </td>
-*@        <td>
+        <td>
             @Html.DisplayFor(modelItem => item.Amount)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstPayment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recurrence.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentType.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IncludeInProjection)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

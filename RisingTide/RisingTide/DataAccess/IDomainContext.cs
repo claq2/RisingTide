@@ -15,5 +15,7 @@ namespace RisingTide.DataAccess
 
         IQueryable<ScheduledPayment> ScheduledPayments { get; }
         IQueryable<User> Users { get; }
+        IQueryable<Recurrence> Recurrences { get; }
+        IQueryable<PaymentType> PaymentTypes { get; }
     }
 }

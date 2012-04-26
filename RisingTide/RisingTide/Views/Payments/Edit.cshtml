@@ -16,14 +16,14 @@
 
         @Html.HiddenFor(model => model.Id)
 
-@*        <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.IsDeleted)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.IsDeleted)
             @Html.ValidationMessageFor(model => model.IsDeleted)
         </div>
-*@
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Amount)
         </div>
@@ -38,6 +38,38 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.FirstPayment)
             @Html.ValidationMessageFor(model => model.FirstPayment)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Payee)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Payee)
+            @Html.ValidationMessageFor(model => model.Payee)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RecurrenceId, "Recurrence")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RecurrenceId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RecurrenceId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PaymentTypeId, "PaymentType")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PaymentTypeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PaymentTypeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IncludeInProjection)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IncludeInProjection)
+            @Html.ValidationMessageFor(model => model.IncludeInProjection)
         </div>
 
         <p>

@@ -12,14 +12,15 @@ namespace RisingTide.Controllers
 { 
     public class PaymentsController : Controller
     {
-        private IDomainContext db = new RisingTideContext();
+        private RisingTideContext db = new RisingTideContext();
 
         //
         // GET: /Payments/
 
         public ViewResult Index()
         {
-            return View(db.ScheduledPayments.ToList());
+            var scheduledpayments = db.ScheduledPayments;
+            return View(scheduledpayments.ToList());
         }
 
         //
@@ -27,7 +28,7 @@ namespace RisingTide.Controllers
 
         public ViewResult Details(int id)
         {
-            ScheduledPayment scheduledpayment = db.ScheduledPayments.FirstOrDefault(s => s.Id == id);
+            ScheduledPayment scheduledpayment = db.ScheduledPayments.Find(id);
             return View(scheduledpayment);
         }
 
@@ -36,6 +37,8 @@ namespace RisingTide.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name");
+            ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name");
             return View();
         } 
 
@@ -47,11 +50,13 @@ namespace RisingTide.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Save<ScheduledPayment>(scheduledpayment);
+                db.ScheduledPayments.Add(scheduledpayment);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
 
+            ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
+            ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);
         }
         
@@ -60,7 +65,9 @@ namespace RisingTide.Controllers
  
         public ActionResult Edit(int id)
         {
-            ScheduledPayment scheduledpayment = db.ScheduledPayments.FirstOrDefault(s => s.Id == id);
+            ScheduledPayment scheduledpayment = db.ScheduledPayments.Find(id);
+            ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
+            ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);
         }
 
@@ -72,10 +79,12 @@ namespace RisingTide.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Save<ScheduledPayment>(scheduledpayment);
+                db.Entry(scheduledpayment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
+            ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);
         }
 
@@ -84,7 +93,7 @@ namespace RisingTide.Controllers
  
         public ActionResult Delete(int id)
         {
-            ScheduledPayment scheduledpayment = db.ScheduledPayments.FirstOrDefault(s => s.Id == id);
+            ScheduledPayment scheduledpayment = db.ScheduledPayments.Find(id);
             return View(scheduledpayment);
         }
 
@@ -93,8 +102,9 @@ namespace RisingTide.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {
-            db.Delete<ScheduledPayment>(id);
+        {            
+            ScheduledPayment scheduledpayment = db.ScheduledPayments.Find(id);
+            db.ScheduledPayments.Remove(scheduledpayment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
