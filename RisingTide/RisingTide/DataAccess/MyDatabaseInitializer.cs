@@ -37,8 +37,7 @@ namespace RisingTide.DataAccess
                 RecurrenceId = recurrences[1].Id,
                 Amount = 25.00M,
                 FirstPayment = DateTime.Today.AddDays(1),
-                Payee = "Cogeco",
-                IsDeleted = false
+                Payee = "Cogeco"
             };
             context.ScheduledPayments.Add(scheduledPayment);
             context.SaveChanges();

@@ -11,9 +11,12 @@ namespace RisingTide.Models
         public int Id { get; private set; }
         
         public bool IsDeleted { get; set; }
+
         public decimal Amount { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime FirstPayment { get; set; }
+
         public string Payee { get; set; }
 
         [Display(Name="Recurrence")]
