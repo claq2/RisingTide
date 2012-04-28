@@ -1,0 +1,4 @@
+¯ should be true that the types are equal (FAIL1)
+¯ should be true that the types are equal (FAIL2)
+¯ should be true that the types are equal (FAIL3)
+

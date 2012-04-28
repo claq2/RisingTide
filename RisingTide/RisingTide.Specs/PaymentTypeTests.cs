@@ -7,6 +7,7 @@ using Machine.Specifications;
 
 namespace RisingTide.Specs
 {
+    [Subject ("PaymentType comparison")]
     public class when_comparing_two_payment_types_with_the_same_name
     {
         static PaymentType type1;
@@ -24,6 +25,7 @@ namespace RisingTide.Specs
         It should_be_true_that_the_types_are_equal = () => result.ShouldBeTrue();
     }
 
+    [Subject("PaymentType comparison")]
     public class when_comparing_two_payment_types_with_different_names
     {
         static PaymentType type1;
