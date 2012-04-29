@@ -39,7 +39,7 @@ namespace RisingTide.Controllers
         {
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name");
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name");
-            return View();
+            return View(new ScheduledPayment());
         } 
 
         //

@@ -31,11 +31,19 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FirstPayment)
+            @Html.LabelFor(model => model.DueDate)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.FirstPayment)
-            @Html.ValidationMessageFor(model => model.FirstPayment)
+            @Html.EditorFor(model => model.DueDate)
+            @Html.ValidationMessageFor(model => model.DueDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PayOnDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PayOnDate)
+            @Html.ValidationMessageFor(model => model.PayOnDate)
         </div>
 
         <div class="editor-label">
@@ -63,11 +71,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IncludeInProjection)
+            @Html.LabelFor(model => model.IncludeInCashFlowAnalysis)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.IncludeInProjection)
-            @Html.ValidationMessageFor(model => model.IncludeInProjection)
+            @Html.EditorFor(model => model.IncludeInCashFlowAnalysis)
+            @Html.ValidationMessageFor(model => model.IncludeInCashFlowAnalysis)
         </div>
 
         <p>

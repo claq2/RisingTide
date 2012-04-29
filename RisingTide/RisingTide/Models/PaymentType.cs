@@ -7,6 +7,10 @@ namespace RisingTide.Models
 {
     public class PaymentType : IEntity, IEquatable<PaymentType>
     {
+        public static readonly string Debit = "Debit";
+
+        public static readonly string Credit = "Credit";
+
         /// <summary>
         /// Gets or sets the name.
         /// </summary>

@@ -49,6 +49,8 @@
     <Compile Include="PaymentTypeTests.cs" />
     <Compile Include="ScheduledPaymentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SinglePaymentTests.cs" />
+    <Compile Include="SinglePaymentWithDateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

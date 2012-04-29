@@ -24,8 +24,8 @@ namespace RisingTide.DataAccess
 
             var paymentTypes = new List<PaymentType>()
             {
-                new PaymentType { Name = "Debit"},
-                new PaymentType { Name = "Credit"}
+                new PaymentType { Name = PaymentType.Debit},
+                new PaymentType { Name = PaymentType.Credit}
             };
 
             paymentTypes.ForEach(p => context.PaymentTypes.Add(p));
@@ -36,9 +36,11 @@ namespace RisingTide.DataAccess
                 PaymentTypeId = paymentTypes[0].Id,
                 RecurrenceId = recurrences[1].Id,
                 Amount = 25.00M,
-                FirstPayment = DateTime.Today.AddDays(1),
+                DueDate = DateTime.Today.AddDays(1),
+                PayOnDate = DateTime.Today.AddDays(1),
                 Payee = "Cogeco"
             };
+
             context.ScheduledPayments.Add(scheduledPayment);
             context.SaveChanges();
 

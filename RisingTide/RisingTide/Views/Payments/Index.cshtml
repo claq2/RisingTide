@@ -18,7 +18,10 @@
             Amount
         </th>
         <th>
-            FirstPayment
+            DueDate
+        </th>
+        <th>
+            PayOnDate
         </th>
         <th>
             Payee
@@ -30,7 +33,7 @@
             PaymentType
         </th>
         <th>
-            IncludeInProjection
+            IncludeInCashFlowAnalysis
         </th>
         <th></th>
     </tr>
@@ -44,7 +47,10 @@
             @Html.DisplayFor(modelItem => item.Amount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstPayment)
+            @Html.DisplayFor(modelItem => item.DueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PayOnDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Payee)
@@ -56,7 +62,7 @@
             @Html.DisplayFor(modelItem => item.PaymentType.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IncludeInProjection)
+            @Html.DisplayFor(modelItem => item.IncludeInCashFlowAnalysis)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

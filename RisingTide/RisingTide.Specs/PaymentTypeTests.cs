@@ -16,8 +16,8 @@ namespace RisingTide.Specs
 
         Establish context = () =>
             {
-                type1 = new PaymentType { Name = "Credit" };
-                type2 = new PaymentType { Name = "Credit" };
+                type1 = new PaymentType { Name = PaymentType.Credit };
+                type2 = new PaymentType { Name = PaymentType.Credit };
             };
 
         Because of = () => result = type1.Equals(type2);
@@ -34,8 +34,8 @@ namespace RisingTide.Specs
 
         Establish context = () =>
         {
-            type1 = new PaymentType { Name = "Credit" };
-            type2 = new PaymentType { Name = "Debit" };
+            type1 = new PaymentType { Name = PaymentType.Credit };
+            type2 = new PaymentType { Name = PaymentType.Debit };
         };
 
         Because of = () => result = type1.Equals(type2);

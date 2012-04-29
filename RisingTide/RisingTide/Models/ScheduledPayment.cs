@@ -15,7 +15,10 @@ namespace RisingTide.Models
         public decimal Amount { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime FirstPayment { get; set; }
+        public DateTime DueDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        public DateTime PayOnDate { get; set; }
 
         public string Payee { get; set; }
 
@@ -29,6 +32,13 @@ namespace RisingTide.Models
 
         public virtual PaymentType PaymentType { get; set; }
 
-        public bool IncludeInProjection { get; set; }
+        public bool IncludeInCashFlowAnalysis { get; set; }
+
+        public ScheduledPayment()
+        {
+            this.IncludeInCashFlowAnalysis = true;
+            this.DueDate = DateTime.Today;
+            this.PayOnDate = DateTime.Today;
+        }
     }
 }
