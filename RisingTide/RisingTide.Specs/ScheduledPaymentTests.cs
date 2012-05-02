@@ -7,14 +7,17 @@ using RisingTide.Models;
 
 namespace RisingTide.Specs
 {
-    [Subject("ScheduledPayment Creation")]
-    public class when_creating_a_scheduled_payment
+    public class ScheduledPaymentTests
     {
-        static ScheduledPayment payment;
-        Because of = () => payment = new ScheduledPayment();
-        It should_not_be_deleted = () => payment.IsDeleted.ShouldBeFalse();
-        It should_be_included_in_projections = () => payment.IncludeInCashFlowAnalysis.ShouldBeTrue();
-        It should_have_todays_date_for_due_date = () => payment.DueDate.ShouldEqual(DateTime.Today);
-        It should_have_todays_date_for_payment_date = () => payment.PayOnDate.ShouldEqual(DateTime.Today);
+        [Subject("ScheduledPayment Creation")]
+        public class when_creating_a_scheduled_payment
+        {
+            static ScheduledPayment payment;
+            Because of = () => payment = new ScheduledPayment();
+            It should_not_be_deleted = () => payment.IsDeleted.ShouldBeFalse();
+            It should_be_included_in_projections = () => payment.IncludeInCashFlowAnalysis.ShouldBeTrue();
+            It should_have_todays_date_for_due_date = () => payment.DueDate.ShouldEqual(DateTime.Today);
+            It should_have_todays_date_for_payment_date = () => payment.PayOnDate.ShouldEqual(DateTime.Today);
+        }
     }
 }
