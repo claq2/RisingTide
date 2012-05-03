@@ -7,6 +7,12 @@ namespace RisingTide.Models
 {
     public class Recurrence : IEntity, IEquatable<Recurrence>
     {
+        public static readonly string None = "None";
+        public static readonly string Weekly = "Weekly";
+        public static readonly string Biweekly = "Biweekly";
+        public static readonly string Monthly = "Monthly";
+        public static readonly string Bimonthly = "Bimonthly";
+
         public string Name { get; set; }
 
         public override int GetHashCode()

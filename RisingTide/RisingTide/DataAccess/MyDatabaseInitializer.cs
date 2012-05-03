@@ -12,11 +12,11 @@ namespace RisingTide.DataAccess
         {
             var recurrences = new List<Recurrence>() 
             {
-                new Recurrence { Name = "None"},
-                new Recurrence { Name = "Weekly"},
-                new Recurrence { Name = "Biweekly"},
-                new Recurrence { Name = "Monthly"},
-                new Recurrence { Name = "Bimonthly"}
+                new Recurrence { Name = Recurrence.None },
+                new Recurrence { Name = Recurrence.Weekly },
+                new Recurrence { Name = Recurrence.Biweekly },
+                new Recurrence { Name = Recurrence.Monthly },
+                new Recurrence { Name = Recurrence.Bimonthly }
             };
 
             recurrences.ForEach(r => context.Recurrences.Add(r));
@@ -43,6 +43,23 @@ namespace RisingTide.DataAccess
 
             context.ScheduledPayments.Add(scheduledPayment);
             context.SaveChanges();
+
+            User user0 = new User(context) { Username = "jmclachl", Payments = new List<ScheduledPayment>() };
+            context.Users.Add(user0);
+            context.SaveChanges();
+
+            var scheduledPayment1 = new ScheduledPayment()
+            {
+                PaymentTypeId = paymentTypes[0].Id,
+                RecurrenceId = recurrences[1].Id,
+                Amount = 75.00M,
+                DueDate = DateTime.Today.AddDays(1),
+                PayOnDate = DateTime.Today.AddDays(1),
+                Payee = "Bell"
+            };
+
+            user0.AddScheduledPayment(scheduledPayment1);
+
 
             base.Seed(context);
             //Add a User and Role Sample!      
