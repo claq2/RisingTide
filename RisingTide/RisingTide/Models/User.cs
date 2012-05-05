@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using RisingTide.DataAccess;
+using RisingTide.ViewModels;
 
 namespace RisingTide.Models
 {
@@ -54,6 +55,49 @@ namespace RisingTide.Models
             }
         }
 
+        public List<CalendarDay> GetDayRangeWithPaymentsFor(DateTime startDate, int numberOfDays, decimal initialBalance)
+        {
+            List<CalendarDay> result = new List<CalendarDay>();
+            decimal currentBalance = initialBalance;
+            for (int i = 0; i < numberOfDays; i++)
+            {
+                DateTime currentDate = startDate.AddDays(i).Date;
+                result.Add(new CalendarDay() { Date = currentDate, Payments = new List<SinglePayment>() });
+                result[i].EndOfDayBalance = currentBalance;
+                foreach (ScheduledPayment scheduledPayment in this.Payments)
+                {
+                    if (scheduledPayment.Recurrence.Name == Recurrence.None && scheduledPayment.PayOnDate != currentDate)
+                    {
+                        continue;
+                    }
+
+                    DateTime nextPaymentDate = scheduledPayment.NextPaymentDateAsOf(currentDate);
+                    if (nextPaymentDate == currentDate)
+                    {
+                        SinglePayment singlePayment = new SinglePayment()
+                        {
+                            Amount = scheduledPayment.Amount * (scheduledPayment.PaymentType.Name == PaymentType.Debit?-1:1),
+                            Payee = scheduledPayment.Payee,
+                            ScheduledPaymentId = scheduledPayment.Id,
+                            IncludeInCashFlowAnalysis = scheduledPayment.IncludeInCashFlowAnalysis
+                        };
+
+                        result[i].Payments.Add(singlePayment);
+
+                        if (scheduledPayment.IncludeInCashFlowAnalysis)
+                        {
+                            result[i].EndOfDayBalance += singlePayment.Amount;
+                        }
+                    }
+                }
+
+                result[i].Payments.Sort();
+                currentBalance = result[i].EndOfDayBalance;
+            }
+
+            return result;
+        }
+        
         public void Dispose()
         {
             Dispose(true);

@@ -12,7 +12,7 @@ namespace RisingTide.ViewModels
         public PaymentType PaymentType { get; set; }
         public string Payee { get; set; }
         public int ScheduledPaymentId { get; set; }
-        public bool IncludeInProjection { get; set; }
+        public bool IncludeInCashFlowAnalysis { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the SinglePayment class.

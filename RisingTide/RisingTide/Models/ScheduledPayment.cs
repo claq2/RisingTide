@@ -51,14 +51,14 @@ namespace RisingTide.Models
             this.PayOnDate = DateTime.Today;
         }
 
-        public DateTime NextPaymentDateAfter(DateTime specificDate)
+        public DateTime NextPaymentDateAsOf(DateTime specificDate)
         {
             specificDate = specificDate.Date;
             DateTime result = DateTime.MinValue;
             if (this.Recurrence.Name == Recurrence.Weekly)
             {
                 result = this.payOnDate;
-                while (result <= specificDate)
+                while (result < specificDate)
                 {
                     result = result.AddDays(7);
                 }
@@ -66,7 +66,7 @@ namespace RisingTide.Models
             else if (this.Recurrence.Name == Recurrence.Biweekly)
             {
                 result = this.payOnDate;
-                while (result <= specificDate)
+                while (result < specificDate)
                 {
                     result = result.AddDays(14);
                 }
@@ -74,7 +74,7 @@ namespace RisingTide.Models
             else if (this.Recurrence.Name == Recurrence.Monthly)
             {
                 result = this.payOnDate;
-                while (result <= specificDate)
+                while (result < specificDate)
                 {
                     result = result.AddMonths(1);
                 }
@@ -82,7 +82,7 @@ namespace RisingTide.Models
             else if (this.Recurrence.Name == Recurrence.Bimonthly)
             {
                 result = this.payOnDate;
-                while (result <= specificDate)
+                while (result < specificDate)
                 {
                     result = result.AddMonths(2);
                 }

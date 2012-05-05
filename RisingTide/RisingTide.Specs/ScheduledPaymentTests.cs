@@ -28,7 +28,7 @@ namespace RisingTide.Specs
                 {
                     payment = new ScheduledPayment() { Recurrence = new Recurrence() { Name = Recurrence.None } };
                 };
-            Because of = () => result = payment.NextPaymentDateAfter(DateTime.Today);
+            Because of = () => result = payment.NextPaymentDateAsOf(DateTime.Today);
             It should_be_datetime_minvalue = () => result.ShouldEqual(DateTime.MinValue);
         }
 
@@ -40,8 +40,8 @@ namespace RisingTide.Specs
             {
                 payment = new ScheduledPayment() { Recurrence = new Recurrence() { Name = Recurrence.Weekly } };
             };
-            Because of = () => result = payment.NextPaymentDateAfter(DateTime.Today);
-            It should_be_7_days_from_now = () => result.ShouldEqual(DateTime.Today.AddDays(7));
+            Because of = () => result = payment.NextPaymentDateAsOf(DateTime.Today.AddDays(1));
+            It should_be_7_days_from_tomorrow = () => result.ShouldEqual(DateTime.Today.AddDays(7));
         }
 
         public class when_asking_for_the_next_payment_date_of_a_biweekly_scheduled_payment
@@ -52,8 +52,8 @@ namespace RisingTide.Specs
             {
                 payment = new ScheduledPayment() { Recurrence = new Recurrence() { Name = Recurrence.Biweekly } };
             };
-            Because of = () => result = payment.NextPaymentDateAfter(DateTime.Today);
-            It should_be_14_days_from_now = () => result.ShouldEqual(DateTime.Today.AddDays(14));
+            Because of = () => result = payment.NextPaymentDateAsOf(DateTime.Today.AddDays(1));
+            It should_be_14_days_from_tomorrow = () => result.ShouldEqual(DateTime.Today.AddDays(14));
         }
 
         public class when_asking_for_the_next_payment_date_of_a_monthly_scheduled_payment
@@ -64,8 +64,8 @@ namespace RisingTide.Specs
             {
                 payment = new ScheduledPayment() { Recurrence = new Recurrence() { Name = Recurrence.Monthly } };
             };
-            Because of = () => result = payment.NextPaymentDateAfter(DateTime.Today);
-            It should_be_a_month_from_now = () => result.ShouldEqual(DateTime.Today.AddMonths(1));
+            Because of = () => result = payment.NextPaymentDateAsOf(DateTime.Today.AddDays(1));
+            It should_be_a_month_from_tomorrow = () => result.ShouldEqual(DateTime.Today.AddMonths(1));
         }
 
         public class when_asking_for_the_next_payment_date_of_a_bimonthly_scheduled_payment
@@ -76,8 +76,8 @@ namespace RisingTide.Specs
             {
                 payment = new ScheduledPayment() { Recurrence = new Recurrence() { Name = Recurrence.Bimonthly } };
             };
-            Because of = () => result = payment.NextPaymentDateAfter(DateTime.Today);
-            It should_be_2_months_from_now = () => result.ShouldEqual(DateTime.Today.AddMonths(2));
+            Because of = () => result = payment.NextPaymentDateAsOf(DateTime.Today.AddDays(1));
+            It should_be_2_months_from_tomorrow = () => result.ShouldEqual(DateTime.Today.AddMonths(2));
         }
     }
 }
