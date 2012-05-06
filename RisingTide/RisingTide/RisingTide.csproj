@@ -75,10 +75,11 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\IEntity.cs" />
+    <Compile Include="Models\MyExtensions.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\Recurrence.cs" />
     <Compile Include="Models\ScheduledPayment.cs" />
-    <Compile Include="Models\ScheduledPayments.cs" />
+    <Compile Include="Models\ScheduledPaymentCollection.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CalendarDay.cs" />

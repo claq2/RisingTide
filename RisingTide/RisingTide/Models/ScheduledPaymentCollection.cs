@@ -1,58 +1,40 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using System.Web;
 using RisingTide.DataAccess;
+using System.Collections.ObjectModel;
 using RisingTide.ViewModels;
 
 namespace RisingTide.Models
 {
-    public class User : IEntity, IDisposable
+    public class ScheduledPaymentCollection : Collection<ScheduledPayment>, IDisposable
     {
-        public readonly IDomainContext context;
-        public virtual int Id { get; set; }
-        public virtual string Username { get; set; }
-        public virtual ICollection<ScheduledPayment> Payments { get; set; }
-        public bool IsDeleted { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the ScheduledPaymentLibrary class.
         /// </summary>
-        public User()
+        public ScheduledPaymentCollection()
             : this(new RisingTideContext())
         {
-
+            
         }
 
         /// <summary>
         /// Initializes a new instance of the ScheduledPaymentLibrary class.
         /// </summary>
         /// <param name="context"></param>
-        public User(IDomainContext context)
+        public ScheduledPaymentCollection(IDomainContext context)
         {
             this.context = context;
         }
 
-        ~User()
-        {
-            Dispose(false);
-        }
+        readonly IDomainContext context;
 
         public void AddScheduledPayment(ScheduledPayment scheduledPayment)
         {
-            this.context.Save<ScheduledPayment>(scheduledPayment);
-            this.Payments.Add(scheduledPayment);
-            this.context.SaveChanges();
-        }
-
-        public void DeleteScheduledPayment(ScheduledPayment scheduledPayment)
-        {
-            if (this.Payments.Contains(scheduledPayment))
-            {
-                this.Payments.Remove(scheduledPayment);
-                this.context.Delete<ScheduledPayment>(scheduledPayment.Id);
-                this.context.SaveChanges();
-            }
+            base.Add(scheduledPayment);
+            context.Save<ScheduledPayment>(scheduledPayment);
+            context.SaveChanges();
         }
 
         public List<CalendarDay> GetDayRangeWithPaymentsFor(DateTime startDate, int numberOfDays, decimal initialBalance)
@@ -64,7 +46,7 @@ namespace RisingTide.Models
                 DateTime currentDate = startDate.AddDays(i).Date;
                 result.Add(new CalendarDay() { Date = currentDate, Payments = new List<SinglePayment>() });
                 result[i].EndOfDayBalance = currentBalance;
-                foreach (ScheduledPayment scheduledPayment in this.Payments)
+                foreach (ScheduledPayment scheduledPayment in this.Items)
                 {
                     if (scheduledPayment.Recurrence.Name == Recurrence.None && scheduledPayment.PayOnDate != currentDate)
                     {
@@ -109,6 +91,11 @@ namespace RisingTide.Models
             if (disposing)
             {
             }
+        }
+
+        ~ScheduledPaymentCollection()
+        {
+            Dispose(false);
         }
     }
 }
