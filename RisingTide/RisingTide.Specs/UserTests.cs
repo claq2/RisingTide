@@ -6,26 +6,41 @@ using RisingTide.Models;
 using Machine.Specifications;
 using RisingTide.ViewModels;
 using System.Collections.ObjectModel;
+using RisingTide.Specs.Mocks;
+using RisingTide.DataAccess;
 
 namespace RisingTide.Specs
 {
     public class UserTests
     {
-        public class when_generating_a_list_of_90_days_with_1_weekly_1_dollar_payment
+        public class when_adding_a_scheduled_payment_to_a_user
         {
             static User user;
             static ScheduledPayment scheduledPayment;
-            static List<CalendarDay> result;
+            static IDomainContext domainContext = null;
             Establish context = () =>
                 {
-                    user = new User() { Payments = new Collection<ScheduledPayment>() };
-                    scheduledPayment = new ScheduledPayment() { PaymentType = new PaymentType() { Name = PaymentType.Debit }, Recurrence = new Recurrence() { Name = Recurrence.Weekly }, Amount = 1.00M };
+                    domainContext = new InMemoryDomainContext();
+                    user = new User(domainContext) { Payments = new Collection<ScheduledPayment>() };
+                    domainContext.Save<User>(user);
+                    scheduledPayment = new ScheduledPayment()
+                    {
+                        Amount = 25.00M,
+                        Payee = "Rogers",
+                        PaymentType = new PaymentType() { Name = PaymentType.Debit },
+                        Recurrence = new Recurrence() { Name = Recurrence.Monthly }
+                    };
+
+
+                };
+            Because of = () =>
+                {
                     user.AddScheduledPayment(scheduledPayment);
                 };
-
-            Because of = () => result = user.GetDayRangeWithPaymentsFor(DateTime.Today, 90, 0);
-
-            It should_have_a_balance_of_minus_12_dollars_on_the_last_day = () => result[89].EndOfDayBalance.ShouldEqual(-13.00M);
+            It should_have_attached_the_scheduled_payment_to_the_user = () =>
+                {
+                    user.Payments.Contains(scheduledPayment);
+                };
         }
     }
 }
