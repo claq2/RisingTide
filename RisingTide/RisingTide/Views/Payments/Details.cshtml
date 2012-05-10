@@ -19,6 +19,11 @@
         @Html.DisplayFor(model => model.Amount)
     </div>
 
+    <div class="display-label">User</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.Username)
+    </div>
+
     <div class="display-label">DueDate</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.DueDate)

@@ -31,6 +31,14 @@
         </div>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.UserId, "User")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("UserId", String.Empty)
+            @Html.ValidationMessageFor(model => model.UserId)
+        </div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.DueDate)
         </div>
         <div class="editor-field">
