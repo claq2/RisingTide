@@ -7,20 +7,30 @@ using System.Web;
 using System.Web.Mvc;
 using RisingTide.Models;
 using RisingTide.DataAccess;
+using RisingTide.ViewModels;
 
 namespace RisingTide.Controllers
 { 
     public class PaymentsController : Controller
     {
-        private RisingTideContext db = new RisingTideContext();
+        private readonly RisingTideContext db = new RisingTideContext();
 
         //
         // GET: /Payments/
 
         public ViewResult Index()
         {
-            var scheduledpayments = db.ScheduledPayments;
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            var scheduledpayments = user.Payments;
             return View(scheduledpayments.ToList());
+        }
+
+        public ViewResult UpcomingPayments()
+        {
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            //var scheduledpayments = user.
+            //ICollection<ScheduledPayment> scheduledpaymentsCollection = scheduledpayments as ICollection<ScheduledPayment>;
+            return View(user.Payments.GetUpcomingPayments(DateTime.Today));
         }
 
         //
@@ -28,7 +38,8 @@ namespace RisingTide.Controllers
 
         public ViewResult Details(int id)
         {
-            ScheduledPayment scheduledpayment = db.ScheduledPayments.Find(id);
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            ScheduledPayment scheduledpayment = user.Payments.FirstOrDefault(p => p.Id == id);
             return View(scheduledpayment);
         }
 
@@ -50,8 +61,11 @@ namespace RisingTide.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ScheduledPayments.Add(scheduledpayment);
-                db.SaveChanges();
+                var user = db.Users.First(u => u.Username == "jmclachl");
+                user.Context = db;
+                //db.ScheduledPayments.Add(scheduledpayment);
+                user.AddScheduledPayment(scheduledpayment);
+                //db.SaveChanges();
                 return RedirectToAction("Index");  
             }
 
@@ -65,7 +79,8 @@ namespace RisingTide.Controllers
  
         public ActionResult Edit(int id)
         {
-            ScheduledPayment scheduledpayment = db.ScheduledPayments.Find(id);
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            ScheduledPayment scheduledpayment = user.Payments.FirstOrDefault(p => p.Id == id);
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);

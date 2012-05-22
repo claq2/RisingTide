@@ -23,10 +23,11 @@ namespace RisingTide.Specs
                 domainContext = new InMemoryDomainContext();
                 user = new User(domainContext) { Payments = new Collection<ScheduledPayment>() };
                 domainContext.Save<User>(user);
+                user = domainContext.Users.First(u => u.Id == 0);
                 scheduledPayment = new ScheduledPayment()
                 {
                     Amount = 25.00M,
-                    Payee = "Rogers",
+                    Subject = "Rogers",
                     PaymentType = new PaymentType() { Name = PaymentType.Debit },
                     Recurrence = new Recurrence() { Name = Recurrence.Monthly }
                 };
@@ -54,7 +55,7 @@ namespace RisingTide.Specs
                 scheduledPayment = new ScheduledPayment()
                 {
                     Amount = 25.00M,
-                    Payee = "Rogers",
+                    Subject = "Rogers",
                     PaymentType = new PaymentType() { Name = PaymentType.Debit },
                     Recurrence = new Recurrence() { Name = Recurrence.Monthly }
                 };

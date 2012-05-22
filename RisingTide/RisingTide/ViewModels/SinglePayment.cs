@@ -10,7 +10,7 @@ namespace RisingTide.ViewModels
     {
         public decimal Amount { get; set; }
         public PaymentType PaymentType { get; set; }
-        public string Payee { get; set; }
+        public string Subject { get; set; }
         public int ScheduledPaymentId { get; set; }
         public bool IncludeInCashFlowAnalysis { get; set; }
 

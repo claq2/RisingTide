@@ -30,7 +30,7 @@ namespace RisingTide.Models
             set { this.payOnDate = value.Date; }
         }
 
-        public string Payee { get; set; }
+        public string Subject { get; set; }
 
         [Display(Name = "Recurrence")]
         public int RecurrenceId { get; set; }
@@ -57,7 +57,7 @@ namespace RisingTide.Models
             DateTime result = DateTime.MinValue;
             if (this.Recurrence.Name == Recurrence.Weekly)
             {
-                result = this.payOnDate;
+                result = this.PayOnDate;
                 while (result < specificDate)
                 {
                     result = result.AddDays(7);
@@ -65,7 +65,7 @@ namespace RisingTide.Models
             }
             else if (this.Recurrence.Name == Recurrence.Biweekly)
             {
-                result = this.payOnDate;
+                result = this.PayOnDate;
                 while (result < specificDate)
                 {
                     result = result.AddDays(14);
@@ -73,7 +73,7 @@ namespace RisingTide.Models
             }
             else if (this.Recurrence.Name == Recurrence.Monthly)
             {
-                result = this.payOnDate;
+                result = this.PayOnDate;
                 while (result < specificDate)
                 {
                     result = result.AddMonths(1);
@@ -81,11 +81,15 @@ namespace RisingTide.Models
             }
             else if (this.Recurrence.Name == Recurrence.Bimonthly)
             {
-                result = this.payOnDate;
+                result = this.PayOnDate;
                 while (result < specificDate)
                 {
                     result = result.AddMonths(2);
                 }
+            }
+            else if (this.Recurrence.Name == Recurrence.None && this.PayOnDate >= specificDate)
+            {
+                result = this.PayOnDate;
             }
 
             return result;

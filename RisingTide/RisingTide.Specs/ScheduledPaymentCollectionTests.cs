@@ -132,5 +132,21 @@ namespace RisingTide.Specs
             It should_have_a_balance_of_18_dollars_on_the_fifteenth_day = () => result[15].EndOfDayBalance.ShouldEqual(18.00M);
             It should_have_a_balance_of_13_dollars_on_the_last_day = () => result[89].EndOfDayBalance.ShouldEqual(13.00M);
         }
+
+        public class when_generating_the_upcoming_payments_with_1_nonrecurring_payment
+        {
+            static Collection<ScheduledPayment> scheduledPayments;
+            static List<SinglePaymentWithDate> result;
+            Establish context = () =>
+                {
+                    scheduledPayments = new Collection<ScheduledPayment>();
+                    scheduledPayments.Add(new ScheduledPayment() { PaymentType = new PaymentType() { Name = PaymentType.Debit }, Recurrence = new Recurrence() { Name = Recurrence.None }, Amount = 1.00M });
+                };
+
+            Because of = () => result = scheduledPayments.GetUpcomingPayments(DateTime.Now);
+
+            It should_have_1_payment_of_1_dollar = () => result[0].Amount.ShouldEqual(-1.00M);
+            It should_have_1_payment_with_todays_date = () => result[0].PaymentDate.ShouldEqual(DateTime.Now.Date);
+        }
     }
 }

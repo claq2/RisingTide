@@ -1,0 +1,57 @@
+﻿@model IEnumerable<RisingTide.ViewModels.SinglePaymentWithDate>
+
+@{
+    ViewBag.Title = "UpcomingPayments";
+}
+
+<h2>UpcomingPayments</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            PaymentDate
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Subject
+        </th>
+        <th>
+            ScheduledPaymentId
+        </th>
+        <th>
+            IncludeInCashFlowAnalysis
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduledPaymentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IncludeInCashFlowAnalysis)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

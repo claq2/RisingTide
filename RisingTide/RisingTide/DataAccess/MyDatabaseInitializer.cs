@@ -38,7 +38,7 @@ namespace RisingTide.DataAccess
                 Amount = 25.00M,
                 DueDate = DateTime.Today.AddDays(1),
                 PayOnDate = DateTime.Today.AddDays(1),
-                Payee = "Cogeco"
+                Subject = "Cogeco"
             };
 
             context.ScheduledPayments.Add(scheduledPayment);
@@ -55,7 +55,7 @@ namespace RisingTide.DataAccess
                 Amount = 75.00M,
                 DueDate = DateTime.Today.AddDays(1),
                 PayOnDate = DateTime.Today.AddDays(1),
-                Payee = "Bell"
+                Subject = "Bell"
             };
 
             user0.AddScheduledPayment(scheduledPayment1);

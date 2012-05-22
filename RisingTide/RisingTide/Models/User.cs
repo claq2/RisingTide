@@ -9,7 +9,7 @@ namespace RisingTide.Models
 {
     public class User : IEntity, IDisposable
     {
-        public readonly IDomainContext context;
+        public IDomainContext Context { get; set; }
         public virtual int Id { get; set; }
         public virtual string Username { get; set; }
         public virtual ICollection<ScheduledPayment> Payments { get; set; }
@@ -30,7 +30,7 @@ namespace RisingTide.Models
         /// <param name="context"></param>
         public User(IDomainContext context)
         {
-            this.context = context;
+            this.Context = context;
         }
 
         ~User()
@@ -40,9 +40,9 @@ namespace RisingTide.Models
 
         public void AddScheduledPayment(ScheduledPayment scheduledPayment)
         {
-            this.context.Save<ScheduledPayment>(scheduledPayment);
+            this.Context.Save<ScheduledPayment>(scheduledPayment);
             this.Payments.Add(scheduledPayment);
-            this.context.SaveChanges();
+            this.Context.SaveChanges();
         }
 
         public void DeleteScheduledPayment(ScheduledPayment scheduledPayment)
@@ -50,8 +50,8 @@ namespace RisingTide.Models
             if (this.Payments.Contains(scheduledPayment))
             {
                 this.Payments.Remove(scheduledPayment);
-                this.context.Delete<ScheduledPayment>(scheduledPayment.Id);
-                this.context.SaveChanges();
+                this.Context.Delete<ScheduledPayment>(scheduledPayment.Id);
+                this.Context.SaveChanges();
             }
         }
     

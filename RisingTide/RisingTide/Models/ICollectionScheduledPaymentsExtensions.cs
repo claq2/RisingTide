@@ -29,7 +29,7 @@ namespace RisingTide.Models
                         SinglePayment singlePayment = new SinglePayment()
                         {
                             Amount = scheduledPayment.Amount * (scheduledPayment.PaymentType.Name == PaymentType.Debit ? -1 : 1),
-                            Payee = scheduledPayment.Payee,
+                            Subject = scheduledPayment.Subject,
                             ScheduledPaymentId = scheduledPayment.Id,
                             IncludeInCashFlowAnalysis = scheduledPayment.IncludeInCashFlowAnalysis
                         };
@@ -46,6 +46,33 @@ namespace RisingTide.Models
                 result[i].Payments.Sort();
                 currentBalance = result[i].EndOfDayBalance;
             }
+
+            return result;
+        }
+
+        public static List<SinglePaymentWithDate> GetUpcomingPayments(this ICollection<ScheduledPayment> payments, DateTime startDate)
+        {
+            DateTime dateOfStartDate = startDate.Date;
+            List<SinglePaymentWithDate> result = new List<SinglePaymentWithDate>();
+            foreach (var scheduledPayment in payments)
+            {
+                if (scheduledPayment.Recurrence.Name == Recurrence.None && scheduledPayment.PayOnDate < dateOfStartDate)
+                {
+                    continue;
+                }
+
+                result.Add(new SinglePaymentWithDate()
+                {
+                    Amount = scheduledPayment.Amount * (scheduledPayment.PaymentType.Name == PaymentType.Debit ? -1 : 1),
+                    Subject = scheduledPayment.Subject,
+                    IncludeInCashFlowAnalysis = scheduledPayment.IncludeInCashFlowAnalysis,
+                    PaymentDate = scheduledPayment.NextPaymentDateAsOf(dateOfStartDate),
+                    PaymentType = new PaymentType() { Name = scheduledPayment.PaymentType.Name },
+                    ScheduledPaymentId = scheduledPayment.Id
+                });
+            }
+
+            result.Sort();
 
             return result;
         }
