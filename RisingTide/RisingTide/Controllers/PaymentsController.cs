@@ -48,9 +48,10 @@ namespace RisingTide.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name");
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name");
-            return View(new ScheduledPayment());
+            return View();
         } 
 
         //
@@ -69,6 +70,7 @@ namespace RisingTide.Controllers
                 return RedirectToAction("Index");  
             }
 
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);
@@ -81,6 +83,7 @@ namespace RisingTide.Controllers
         {
             var user = db.Users.First(u => u.Username == "jmclachl");
             ScheduledPayment scheduledpayment = user.Payments.FirstOrDefault(p => p.Id == id);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);
@@ -98,6 +101,7 @@ namespace RisingTide.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);

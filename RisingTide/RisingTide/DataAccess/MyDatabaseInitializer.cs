@@ -31,18 +31,18 @@ namespace RisingTide.DataAccess
             paymentTypes.ForEach(p => context.PaymentTypes.Add(p));
             context.SaveChanges();
 
-            var scheduledPayment = new ScheduledPayment()
-            {
-                PaymentTypeId = paymentTypes[0].Id,
-                RecurrenceId = recurrences[1].Id,
-                Amount = 25.00M,
-                DueDate = DateTime.Today.AddDays(1),
-                PayOnDate = DateTime.Today.AddDays(1),
-                Subject = "Cogeco"
-            };
+            //var scheduledPayment = new ScheduledPayment()
+            //{
+            //    PaymentTypeId = paymentTypes[0].Id,
+            //    RecurrenceId = recurrences[1].Id,
+            //    Amount = 25.00M,
+            //    DueDate = DateTime.Today.AddDays(1),
+            //    PayOnDate = DateTime.Today.AddDays(1),
+            //    Payee = "Cogeco"
+            //};
 
-            context.ScheduledPayments.Add(scheduledPayment);
-            context.SaveChanges();
+            //context.ScheduledPayments.Add(scheduledPayment);
+            //context.SaveChanges();
 
             User user0 = new User(context) { Username = "jmclachl", Payments = new List<ScheduledPayment>() };
             context.Users.Add(user0);

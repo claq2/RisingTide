@@ -14,6 +14,10 @@ namespace RisingTide.Models
 
         public decimal Amount { get; set; }
 
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
+
         private DateTime payOnDate;
         private DateTime dueDate;
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
