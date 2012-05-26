@@ -69,5 +69,26 @@ namespace RisingTide.Specs
 
             It should_be_that_the_credit_single_payment_with_date_comes_before_the_debit_single_payment_with_date = () => result.ShouldEqual(-1);
         }
+
+        public class when_comparing_older_payment_with_date_to_newer_payment_with_date
+        {
+            static SinglePaymentWithDate payment1;
+            static SinglePaymentWithDate payment2;
+
+            static int result;
+
+            Establish context = () =>
+            {
+                payment1 = new SinglePaymentWithDate();
+                payment1.PaymentType.Name = PaymentType.Credit;
+                payment2 = new SinglePaymentWithDate();
+                payment2.PaymentType.Name = PaymentType.Credit;
+                payment2.PaymentDate = DateTime.Today.AddDays(1);
+            };
+
+            Because of = () => result = payment1.CompareTo(payment2);
+
+            It should_be_that_the_older_payment_with_date_comes_before_the_newer_single_payment_with_date = () => result.ShouldEqual(-1);
+        }
     }
 }

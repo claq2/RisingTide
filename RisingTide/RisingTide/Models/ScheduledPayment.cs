@@ -8,45 +8,45 @@ namespace RisingTide.Models
 {
     public class ScheduledPayment : IEntity
     {
-        public int Id { get; private set; }
+        public virtual int Id { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; }
 
-        public decimal Amount { get; set; }
+        public virtual decimal Amount { get; set; }
 
-        public int UserId { get; set; }
+        public virtual int UserId { get; set; }
 
         public virtual User User { get; set; }
 
         private DateTime payOnDate;
         private DateTime dueDate;
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime DueDate
+        public virtual DateTime DueDate
         {
             get { return this.dueDate; }
             set { this.dueDate = value.Date; }
         }
 
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime PayOnDate
+        public virtual DateTime PayOnDate
         {
             get { return this.payOnDate; }
             set { this.payOnDate = value.Date; }
         }
 
-        public string Subject { get; set; }
+        public virtual string Subject { get; set; }
 
         [Display(Name = "Recurrence")]
-        public int RecurrenceId { get; set; }
+        public virtual int RecurrenceId { get; set; }
 
         public virtual Recurrence Recurrence { get; set; }
 
         [Display(Name = "Type")]
-        public int PaymentTypeId { get; set; }
+        public virtual int PaymentTypeId { get; set; }
 
         public virtual PaymentType PaymentType { get; set; }
 
-        public bool IncludeInCashFlowAnalysis { get; set; }
+        public virtual bool IncludeInCashFlowAnalysis { get; set; }
 
         public ScheduledPayment()
         {

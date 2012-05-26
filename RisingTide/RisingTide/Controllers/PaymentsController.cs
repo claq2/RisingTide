@@ -33,6 +33,12 @@ namespace RisingTide.Controllers
             return View(user.Payments.GetUpcomingPayments(DateTime.Today));
         }
 
+        public ViewResult Projection()
+        {
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            return View(user.Payments.GetDayRangeWithPaymentsFor(DateTime.Today, 90, 0));
+        }
+
         //
         // GET: /Payments/Details/5
 
@@ -70,7 +76,7 @@ namespace RisingTide.Controllers
                 return RedirectToAction("Index");  
             }
 
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
+            //ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
             return View(scheduledpayment);
@@ -97,6 +103,8 @@ namespace RisingTide.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var user = db.Users.First(u => u.Username == "jmclachl");
+                //scheduledpayment.UserId = user.Id;
                 db.Entry(scheduledpayment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -40,6 +40,7 @@ namespace RisingTide.Models
 
         public void AddScheduledPayment(ScheduledPayment scheduledPayment)
         {
+            scheduledPayment.UserId = this.Id;
             this.Context.Save<ScheduledPayment>(scheduledPayment);
             this.Payments.Add(scheduledPayment);
             this.Context.SaveChanges();
