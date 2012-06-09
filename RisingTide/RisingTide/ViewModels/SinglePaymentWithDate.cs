@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace RisingTide.ViewModels
 {
     public class SinglePaymentWithDate : SinglePayment, IComparable
     {
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime PaymentDate { get; set; }
 
         public override int CompareTo(object obj)
