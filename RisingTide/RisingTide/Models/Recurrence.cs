@@ -12,6 +12,7 @@ namespace RisingTide.Models
         public static readonly string Biweekly = "Biweekly";
         public static readonly string Monthly = "Monthly";
         public static readonly string Bimonthly = "Bimonthly";
+        public static readonly string LastDayOfMonth = "LastDayOfMonth";
 
         public string Name { get; set; }
 

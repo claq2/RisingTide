@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeExtensionTests.cs" />
     <Compile Include="Mocks\InMemoryDomainContext.cs" />
     <Compile Include="PaymentTypeTests.cs" />
     <Compile Include="ScheduledPaymentCollectionTests.cs" />

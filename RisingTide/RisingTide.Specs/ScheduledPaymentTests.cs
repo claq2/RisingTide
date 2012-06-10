@@ -91,5 +91,29 @@ namespace RisingTide.Specs
             Because of = () => result = payment.NextPaymentDateAsOf(DateTime.Today.AddDays(1));
             It should_be_2_months_from_tomorrow = () => result.ShouldEqual(DateTime.Today.AddMonths(2));
         }
+
+        public class when_asking_for_the_next_payment_date_of_an_end_of_month_scheduled_payment
+        {
+            static ScheduledPayment payment;
+            static DateTime result;
+            Establish context = () =>
+            {
+                payment = new ScheduledPayment() { Recurrence = new Recurrence() { Name = Recurrence.LastDayOfMonth } };
+            };
+            Because of = () => result = payment.NextPaymentDateAsOf(DateTime.Today.AddDays(1));
+            It should_be_the_last_day_of_this_month = () => result.ShouldEqual(DateTime.Today.LastDayOfMonth());
+        }
+
+        public class when_asking_for_the_next_payment_date_of_an_end_of_month_scheduled_payment_may_31
+        {
+            static ScheduledPayment payment;
+            static DateTime result;
+            Establish context = () =>
+            {
+                payment = new ScheduledPayment() { Recurrence = new Recurrence() { Name = Recurrence.LastDayOfMonth }, PayOnDate = new DateTime(2012, 5, 31) };
+            };
+            Because of = () => result = payment.NextPaymentDateAsOf(new DateTime(2012, 5, 31));
+            It should_be_may_31 = () => result.ShouldEqual(new DateTime(2012, 5, 31));
+        }
     }
 }

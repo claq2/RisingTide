@@ -16,7 +16,8 @@ namespace RisingTide.DataAccess
                 new Recurrence { Name = Recurrence.Weekly },
                 new Recurrence { Name = Recurrence.Biweekly },
                 new Recurrence { Name = Recurrence.Monthly },
-                new Recurrence { Name = Recurrence.Bimonthly }
+                new Recurrence { Name = Recurrence.Bimonthly },
+                new Recurrence { Name = Recurrence.LastDayOfMonth }
             };
 
             recurrences.ForEach(r => context.Recurrences.Add(r));

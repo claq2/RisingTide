@@ -91,6 +91,14 @@ namespace RisingTide.Models
                     result = result.AddMonths(2);
                 }
             }
+            else if (this.Recurrence.Name == Recurrence.LastDayOfMonth)
+            {
+                result = this.PayOnDate.LastDayOfMonth();
+                while (result < specificDate)
+                {
+                    result = result.AddMonths(1).LastDayOfMonth();
+                }
+            }
             else if (this.Recurrence.Name == Recurrence.None && this.PayOnDate >= specificDate)
             {
                 result = this.PayOnDate;
