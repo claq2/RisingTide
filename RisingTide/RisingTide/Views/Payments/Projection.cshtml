@@ -3,9 +3,8 @@
 @{
     ViewBag.Title = "Projection";
 }
-
 <h2>Projection</h2>
-
+<div id="placeholder" style="width:1200px;height:600px"></div>
 <table>
     <tr>
         <th>
@@ -28,3 +27,6 @@
 }
 
 </table>
+<script type="text/javascript">
+    $.plot($("#placeholder"), [[[0, 0], [1, 5]]]);
+</script>
