@@ -25,6 +25,13 @@ namespace RisingTide.Controllers
             return View(scheduledpayments.ToList());
         }
 
+        public ActionResult GraphBalanceData()
+        {
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            return Json(user.Payments.GetDayRangeWithPaymentsFor(DateTime.Today, 90, 0), JsonRequestBehavior.AllowGet);
+
+        }
+
         public ViewResult UpcomingPayments()
         {
             var user = db.Users.First(u => u.Username == "jmclachl");

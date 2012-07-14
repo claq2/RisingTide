@@ -28,5 +28,18 @@
 
 </table>
 <script type="text/javascript">
-    $.plot($("#placeholder"), [[[0, 0], [1, 5]]]);
+    //$.plot($("#placeholder"), [[[0, 0], [1, 5]]]);
+    $.getJSON("/Payments/GraphBalanceData", function (data) {
+        //alert(data);
+        //alert(data[0].EndOfDayBalance);
+        //alert(new Date(parseInt(data[0].Date.substr(6))));
+        var quoteData = [];
+        for (var i in data) {
+            var dp = data[i];
+            var convertedDate = new Date(parseInt(dp.Date.substr(6)))
+            quoteData.push([convertedDate, dp.EndOfDayBalance]);
+        }
+
+        $.plot($("#placeholder"), [quoteData], { xaxis: { mode: "time"} });
+    });
 </script>
