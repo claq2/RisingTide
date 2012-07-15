@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CashFlowScorerTests.cs" />
     <Compile Include="DateTimeExtensionTests.cs" />
     <Compile Include="Mocks\InMemoryDomainContext.cs" />
     <Compile Include="PaymentTypeTests.cs" />
+    <Compile Include="ScheduledPaymentCollectionCashFlowTests.cs" />
     <Compile Include="ScheduledPaymentCollectionTests.cs" />
     <Compile Include="ScheduledPaymentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

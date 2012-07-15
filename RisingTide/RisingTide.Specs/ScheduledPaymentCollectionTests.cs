@@ -174,6 +174,5 @@ namespace RisingTide.Specs
             It should_have_a_balance_of_minus_2_dollars_on_june_30 = () => result[30].EndOfDayBalance.ShouldEqual(-2.00M);
             It should_have_a_balance_of_minus_3_dollars_on_the_last_day = () => result[89].EndOfDayBalance.ShouldEqual(-3.00M);
         }
-
     }
 }
