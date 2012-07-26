@@ -14,6 +14,8 @@ namespace RisingTide.Controllers
     public class PaymentsController : Controller
     {
         private readonly RisingTideContext db = new RisingTideContext();
+        
+        private static readonly int daysToProject = 90;
 
         //
         // GET: /Payments/
@@ -28,7 +30,7 @@ namespace RisingTide.Controllers
         public ActionResult GraphBalanceData()
         {
             var user = db.Users.First(u => u.Username == "jmclachl");
-            return Json(user.Payments.GetDayRangeWithPaymentsFor(DateTime.Today, 90, 0), JsonRequestBehavior.AllowGet);
+            return Json(user.Payments.GetDayRangeWithPaymentsFor(DateTime.Today, daysToProject, 0), JsonRequestBehavior.AllowGet);
 
         }
 
@@ -43,7 +45,9 @@ namespace RisingTide.Controllers
         public ViewResult Projection()
         {
             var user = db.Users.First(u => u.Username == "jmclachl");
-            return View(user.Payments.GetDayRangeWithPaymentsFor(DateTime.Today, 90, 0));
+            ICollection<ScheduledPayment> payments = user.Payments;
+            ViewBag.TideIsRising = payments.IsCashFlowScorePositive();
+            return View(payments.GetDayRangeWithPaymentsFor(DateTime.Today, daysToProject, 0));
         }
 
         //

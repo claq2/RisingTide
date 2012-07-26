@@ -7,48 +7,53 @@ namespace RisingTide.Models
 {
     public static class CashFlowScorer
     {
-        public static double CalculateScore(decimal initialBalance, decimal balanceAfter30Days, decimal balanceAfter90Days, decimal balanceAfter180Days, decimal balanceAfter365Days)
+        public readonly static int NumberOfDaysInFirstPeriod = 30;
+        public readonly static int NumberOfDaysInSecondPeriod = 90;
+        public readonly static int NumberOfDaysInThirdPeriod = 180;
+        public readonly static int NumberOfDaysInFourthPeriod = 365;
+
+        public static double CalculateScore(decimal initialBalance, decimal balanceAfterFirstPeriod, decimal balanceAfter9SecondPeriod, decimal balanceAfterThirdPeriod, decimal balanceAfterFourthPeriod)
         {
-            const double scoreForPositiveBalanceAfter30Days = 0.5;
-            const double scoreForPositiveBalanceAfter90Days = 1.0;
-            const double scoreForPositiveBalanceAfter180Days = 1.5;
-            const double scoreForPositiveBalanceAfter365Days = 2.0;
+            const double scoreForPositiveBalanceAfterFirstPeriod = 0.5;
+            const double scoreForPositiveBalanceAfterSecondPeriod = 1.0;
+            const double scoreForPositiveBalanceAfterThirdPeriod = 1.5;
+            const double scoreForPositiveBalanceAfterFourthPeriod = 2.0;
 
             double score = 0;
-            if (balanceAfter30Days >= initialBalance)
+            if (balanceAfterFirstPeriod >= initialBalance)
             {
-                score += scoreForPositiveBalanceAfter30Days;
+                score += scoreForPositiveBalanceAfterFirstPeriod;
             }
             else
             {
-                score -= scoreForPositiveBalanceAfter30Days;
+                score -= scoreForPositiveBalanceAfterFirstPeriod;
             }
 
-            if (balanceAfter90Days >= initialBalance)
+            if (balanceAfter9SecondPeriod >= initialBalance)
             {
-                score += scoreForPositiveBalanceAfter90Days;
+                score += scoreForPositiveBalanceAfterSecondPeriod;
             }
             else
             {
-                score -= scoreForPositiveBalanceAfter90Days;
+                score -= scoreForPositiveBalanceAfterSecondPeriod;
             }
 
-            if (balanceAfter180Days >= initialBalance)
+            if (balanceAfterThirdPeriod >= initialBalance)
             {
-                score += scoreForPositiveBalanceAfter180Days;
+                score += scoreForPositiveBalanceAfterThirdPeriod;
             }
             else
             {
-                score -= scoreForPositiveBalanceAfter180Days;
+                score -= scoreForPositiveBalanceAfterThirdPeriod;
             }
 
-            if (balanceAfter365Days >= initialBalance)
+            if (balanceAfterFourthPeriod >= initialBalance)
             {
-                score += scoreForPositiveBalanceAfter365Days;
+                score += scoreForPositiveBalanceAfterFourthPeriod;
             }
             else
             {
-                score -= scoreForPositiveBalanceAfter365Days;
+                score -= scoreForPositiveBalanceAfterFourthPeriod;
             }
 
             return score;

@@ -80,12 +80,12 @@ namespace RisingTide.Models
         public static bool IsCashFlowScorePositive(this ICollection<ScheduledPayment> payments)
         {
             decimal balanceOnFirstDay = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, 1, 0).First().EndOfDayBalance;
-            decimal balanceAfter30Days = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, 30, 0).Last().EndOfDayBalance;
-            decimal balanceAfter90Days = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, 90, 0).Last().EndOfDayBalance;
-            decimal balanceAfter180Days = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, 180, 0).Last().EndOfDayBalance;
-            decimal balanceAfter365Days = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, 365, 0).Last().EndOfDayBalance;
+            decimal balanceAfterFirstPeriod = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, CashFlowScorer.NumberOfDaysInFirstPeriod, 0).Last().EndOfDayBalance;
+            decimal balanceAfterSecondPeriod = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, CashFlowScorer.NumberOfDaysInSecondPeriod, 0).Last().EndOfDayBalance;
+            decimal balanceAfterThirdPeriod = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, CashFlowScorer.NumberOfDaysInThirdPeriod, 0).Last().EndOfDayBalance;
+            decimal balanceAfterFourthPeriod = payments.GetDayRangeWithPaymentsFor(DateTime.Now.Date, CashFlowScorer.NumberOfDaysInFourthPeriod, 0).Last().EndOfDayBalance;
 
-            return CashFlowScorer.CalculateScore(balanceOnFirstDay, balanceAfter30Days, balanceAfter90Days, balanceAfter180Days, balanceAfter365Days) > 0;
+            return CashFlowScorer.CalculateScore(balanceOnFirstDay, balanceAfterFirstPeriod, balanceAfterSecondPeriod, balanceAfterThirdPeriod, balanceAfterFourthPeriod) > 0;
         }
     }
 }

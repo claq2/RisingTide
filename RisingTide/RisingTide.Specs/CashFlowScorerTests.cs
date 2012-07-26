@@ -117,5 +117,27 @@ namespace RisingTide.Specs
 
             It should_have_a_score_of_plus_1 = () => result.ShouldEqual(1.0);
         }
+
+        public class when_first_balance_is_0_and_last_3_balances_are_minus_1
+        {
+            static decimal initialBalance;
+            static decimal balanceAfter30Days;
+            static decimal balanceAfter90Days;
+            static decimal balanceAfter180Days;
+            static decimal balanceAfter365Days;
+            static double result;
+            Establish context = () =>
+            {
+                initialBalance = 0;
+                balanceAfter30Days = 0;
+                balanceAfter90Days = -1;
+                balanceAfter180Days = -1;
+                balanceAfter365Days = -1;
+            };
+
+            Because of = () => result = CashFlowScorer.CalculateScore(initialBalance, balanceAfter30Days, balanceAfter90Days, balanceAfter180Days, balanceAfter365Days);
+
+            It should_have_a_score_of_minus_4_point_5 = () => result.ShouldEqual(-4.0);
+        }
     }
 }
