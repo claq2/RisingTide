@@ -50,6 +50,15 @@ namespace RisingTide.Controllers
             return View(payments.GetDayRangeWithPaymentsFor(DateTime.Today, daysToProject, 0));
         }
 
+        [ChildActionOnly]
+        public ActionResult CashFlowInfo()
+        {
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            ICollection<ScheduledPayment> payments = user.Payments;
+            ViewBag.TideIsRising = payments.IsCashFlowScorePositive();
+            return PartialView("_RisingTidePartial");
+        }
+
         //
         // GET: /Payments/Details/5
 
