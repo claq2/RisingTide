@@ -11,6 +11,9 @@ namespace RisingTide.ViewModels
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime PaymentDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        public DateTime DueDate { get; set; }
+
         public override int CompareTo(object obj)
         {
             SinglePaymentWithDate otherAsPaymentDate = obj as SinglePaymentWithDate;

@@ -55,13 +55,23 @@ namespace RisingTide.Models
             this.PayOnDate = DateTime.Today;
         }
 
+        public DateTime NextDueDateAsOf(DateTime specificDate)
+        {
+            return this.NextDateAsOf(this.DueDate, specificDate);
+        }
+
         public DateTime NextPaymentDateAsOf(DateTime specificDate)
+        {
+            return this.NextDateAsOf(this.PayOnDate, specificDate);
+        }
+
+        private DateTime NextDateAsOf(DateTime startDate, DateTime specificDate)
         {
             specificDate = specificDate.Date;
             DateTime result = DateTime.MinValue;
             if (this.Recurrence.Name == Recurrence.Weekly)
             {
-                result = this.PayOnDate;
+                result = startDate;
                 while (result < specificDate)
                 {
                     result = result.AddDays(7);
@@ -69,7 +79,7 @@ namespace RisingTide.Models
             }
             else if (this.Recurrence.Name == Recurrence.Biweekly)
             {
-                result = this.PayOnDate;
+                result = startDate;
                 while (result < specificDate)
                 {
                     result = result.AddDays(14);
@@ -77,7 +87,7 @@ namespace RisingTide.Models
             }
             else if (this.Recurrence.Name == Recurrence.Monthly)
             {
-                result = this.PayOnDate;
+                result = startDate;
                 while (result < specificDate)
                 {
                     result = result.AddMonths(1);
@@ -85,7 +95,7 @@ namespace RisingTide.Models
             }
             else if (this.Recurrence.Name == Recurrence.Bimonthly)
             {
-                result = this.PayOnDate;
+                result = startDate;
                 while (result < specificDate)
                 {
                     result = result.AddMonths(2);
@@ -93,15 +103,15 @@ namespace RisingTide.Models
             }
             else if (this.Recurrence.Name == Recurrence.LastDayOfMonth)
             {
-                result = this.PayOnDate.LastDayOfMonth();
+                result = startDate.LastDayOfMonth();
                 while (result < specificDate)
                 {
                     result = result.AddMonths(1).LastDayOfMonth();
                 }
             }
-            else if (this.Recurrence.Name == Recurrence.None && this.PayOnDate >= specificDate)
+            else if (this.Recurrence.Name == Recurrence.None && startDate >= specificDate)
             {
-                result = this.PayOnDate;
+                result = startDate;
             }
 
             return result;
