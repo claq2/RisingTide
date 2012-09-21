@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisingTide", "RisingTide\RisingTide.csproj", "{0E779C7C-EBB5-416E-8A94-D74E306E2C25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisingTide.Specs", "RisingTide.Specs\RisingTide.Specs.csproj", "{BCF701D8-267F-43E4-81D4-21D712C82C3E}"
