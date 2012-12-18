@@ -18,10 +18,19 @@
             return;
         };
     }
+
     if (RISINGTIDE.pageSetupCommon == null) {
         RISINGTIDE.pageSetupCommon = function () {
             $(":button").button();
             $(":submit").button();
+            return;
+        };
+    }
+
+    if (RISINGTIDE.upcomingPaymentsSetup == null) {
+        RISINGTIDE.upcomingPaymentsSetup = function () {
+            $("#StartDate").datepicker();
+            $("#StartDate").datepicker('setDate', new Date());
             return;
         };
     }

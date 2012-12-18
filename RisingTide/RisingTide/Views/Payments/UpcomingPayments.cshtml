@@ -1,48 +1,56 @@
 ﻿@model IEnumerable<RisingTide.ViewModels.SinglePaymentWithDate>
-
 @{
-    ViewBag.Title = "UpcomingPayments";
+    ViewBag.Title = "Upcoming Payments";
 }
+<script type="text/javascript">
+    $(function () {
+        RISINGTIDE.upcomingPaymentsSetup();
+    });
+</script>
 
-<h2>UpcomingPayments</h2>
-
+<h2>Upcoming Payments</h2>
+@using (Html.BeginForm())
+{
+    <p>
+        Start Date:
+        <input type="datetime" id="StartDate" name="StartDate" />
+    </p>
+    <p>
+        <input type="submit" value="Update" /></p>
+}
 <table>
     <tr>
-        <th>
-            PaymentDate
+        <th>PaymentDate
         </th>
-        <th>
-            Amount
+        <th>Amount
         </th>
-        <th>
-            Subject
+        <th>Subject
         </th>
-        <th>
-            ScheduledPaymentId
+        <th>ScheduledPaymentId
         </th>
-        <th>
-            IncludeInCashFlowAnalysis
+        <th>IncludeInCashFlowAnalysis
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PaymentDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subject)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ScheduledPaymentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IncludeInCashFlowAnalysis)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduledPaymentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncludeInCashFlowAnalysis)
+            </td>
+        </tr>
+    }
 
 </table>

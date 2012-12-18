@@ -42,6 +42,17 @@ namespace RisingTide.Controllers
             return View(user.Payments.GetUpcomingPayments(DateTime.Today));
         }
 
+        [HttpPost]
+        public ViewResult UpcomingPayments(FormCollection formCollection)
+        {
+            var user = db.Users.First(u => u.Username == "jmclachl");
+            //var scheduledpayments = user.
+            //ICollection<ScheduledPayment> scheduledpaymentsCollection = scheduledpayments as ICollection<ScheduledPayment>;
+            string date = formCollection["StartDate"];
+            DateTime startDate = DateTime.Parse(date);
+            return View(user.Payments.GetUpcomingPayments(startDate));
+        }
+
         public ViewResult Projection()
         {
             var user = db.Users.First(u => u.Username == "jmclachl");
