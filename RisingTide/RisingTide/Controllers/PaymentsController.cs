@@ -22,51 +22,71 @@ namespace RisingTide.Controllers
 
         public ViewResult Index()
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            var scheduledpayments = user.Payments;
-            return View(scheduledpayments.ToList());
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                var scheduledpayments = user.Payments;
+                return View(scheduledpayments.ToList());
+            }
         }
 
         public ActionResult GraphBalanceData()
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            return Json(user.Payments.GetDayRangeWithPaymentsFor(DateTime.Today, daysToProject, 0), JsonRequestBehavior.AllowGet);
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                return Json(user.Payments.GetDayRangeWithPaymentsFor(DateTime.Today, daysToProject, 0), JsonRequestBehavior.AllowGet);
+            }
 
         }
 
         public ViewResult UpcomingPayments()
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            //var scheduledpayments = user.
-            //ICollection<ScheduledPayment> scheduledpaymentsCollection = scheduledpayments as ICollection<ScheduledPayment>;
-            return View(user.Payments.GetUpcomingPayments(DateTime.Today));
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                if (Session["StartDate"] == null)
+                {
+                    ViewBag.StartDate = DateTime.Today.Date.ToShortDateString();
+                }
+                else
+                {
+                    ViewBag.StartDate = Session["StartDate"];
+                }
+
+                return View(user.Payments.GetUpcomingPayments(DateTime.Today));
+            }
         }
 
         [HttpPost]
         public ViewResult UpcomingPayments(FormCollection formCollection)
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            //var scheduledpayments = user.
-            //ICollection<ScheduledPayment> scheduledpaymentsCollection = scheduledpayments as ICollection<ScheduledPayment>;
-            string date = formCollection["StartDate"];
-            DateTime startDate = DateTime.Parse(date);
-            return View(user.Payments.GetUpcomingPayments(startDate));
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                string date = formCollection["StartDate"];
+                Session["StartDate"] = date;
+                ViewBag.StartDate = date;
+                DateTime startDate = DateTime.Parse(date);
+                return View(user.Payments.GetUpcomingPayments(startDate));
+            }
         }
 
         public ViewResult Projection()
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            ICollection<ScheduledPayment> payments = user.Payments;
-            ViewBag.TideIsRising = payments.IsCashFlowScorePositive();
-            return View(payments.GetDayRangeWithPaymentsFor(DateTime.Today, daysToProject, 0));
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                ICollection<ScheduledPayment> payments = user.Payments;
+                ViewBag.TideIsRising = payments.IsCashFlowScorePositive();
+                return View(payments.GetDayRangeWithPaymentsFor(DateTime.Today, daysToProject, 0));
+            }
         }
 
         [ChildActionOnly]
         public ActionResult CashFlowInfo()
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            ICollection<ScheduledPayment> payments = user.Payments;
-            ViewBag.TideIsRising = payments.IsCashFlowScorePositive();
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                ICollection<ScheduledPayment> payments = user.Payments;
+                ViewBag.TideIsRising = payments.IsCashFlowScorePositive();
+            }
+
             return PartialView("_RisingTidePartial");
         }
 
@@ -75,9 +95,11 @@ namespace RisingTide.Controllers
 
         public ViewResult Details(int id)
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            ScheduledPayment scheduledpayment = user.Payments.FirstOrDefault(p => p.Id == id);
-            return View(scheduledpayment);
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                ScheduledPayment scheduledpayment = user.Payments.FirstOrDefault(p => p.Id == id);
+                return View(scheduledpayment);
+            }
         }
 
         //
@@ -118,12 +140,14 @@ namespace RisingTide.Controllers
  
         public ActionResult Edit(int id)
         {
-            var user = db.Users.First(u => u.Username == "jmclachl");
-            ScheduledPayment scheduledpayment = user.Payments.FirstOrDefault(p => p.Id == id);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
-            ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
-            ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
-            return View(scheduledpayment);
+            using (var user = db.Users.First(u => u.Username == "jmclachl"))
+            {
+                ScheduledPayment scheduledpayment = user.Payments.FirstOrDefault(p => p.Id == id);
+                ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
+                ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
+                ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);
+                return View(scheduledpayment);
+            }
         }
 
         //
@@ -140,6 +164,7 @@ namespace RisingTide.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.UserId = new SelectList(db.Users, "Id", "Username", scheduledpayment.UserId);
             ViewBag.RecurrenceId = new SelectList(db.Recurrences, "Id", "Name", scheduledpayment.RecurrenceId);
             ViewBag.PaymentTypeId = new SelectList(db.PaymentTypes, "Id", "Name", scheduledpayment.PaymentTypeId);

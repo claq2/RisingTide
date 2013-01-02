@@ -29,8 +29,8 @@
 
     if (RISINGTIDE.upcomingPaymentsSetup == null) {
         RISINGTIDE.upcomingPaymentsSetup = function () {
-            $("#StartDate").datepicker();
-            $("#StartDate").datepicker('setDate', new Date());
+            $("#StartDate").datepicker({ dateFormat: "m/d/yy" });
+//            $("#StartDate").datepicker('setDate', new Date());
             return;
         };
     }
